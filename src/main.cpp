@@ -1,33 +1,47 @@
 #include <iostream>
-#include <vector>
-#include <memory>
 
-#include "item_manager/ItemManager.h"
+#include "device/DeviceManager.h"
+
 #include "device/IDevice.h"
 #include "device/Motor.h"
 #include "device/TemperatureSensor.h"
 
-int main()
+void DisplayDevicesData(const DeviceManager& deviceManager)
 {
+    std::size_t deviceCount = deviceManager.GetDeviceCount();
 
-    std::vector<std::unique_ptr<IDevice>> devices;
-
-    devices.push_back(std::make_unique<Motor>(0, "motorA", 1234, 0, false));
-    devices.push_back(std::make_unique<TemperatureSensor>(1, "tempA", 4325, 0));
-
-    for (auto& d : devices)
+    for (std::size_t i = 0; i < deviceCount; ++i)
     {
-        std::cout << "id " << d->GetId() << " name " << d->GetName() << "\n";
-    }
-
-    for (int i = 0; i < 100; i++)
-    {
-        for (auto& d : devices)
+        const IDevice* device = deviceManager.GetDevice(i);
+        if (device)
         {
-            d->Update();
-            std::cout << "id " << d->GetId() << " name " << d->GetName() << d->GetDataString() << "\n";
+            std::cout << "id " << device->GetId() << " " << device->GetName() << " " << device->GetDataString() << "\n";
         }
     }
+}
+
+int main()
+{
+    DeviceManager deviceManager;
+
+    deviceManager.AddDevice(std::make_unique<Motor>(0, "MotorA", 123, 0, false));
+    bool f = deviceManager.AddDevice(std::make_unique<Motor>(1, "MotorB", 456, 0, false));
+
+    if (f)
+    {
+        std::cout << "success!\n";
+    }
+    else {
+        std::cout << "failed\n";
+    }
+    deviceManager.AddDevice(std::make_unique<TemperatureSensor>(2, "TempA", 789, 0));
+
+    for (int i = 0; i < 100; ++i)
+    {
+        deviceManager.Update();
+        DisplayDevicesData(deviceManager);
+    }
+
 
     return 0;
 }

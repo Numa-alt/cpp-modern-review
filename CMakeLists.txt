@@ -9,6 +9,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_executable(cpp-modern-review
     src/main.cpp
     src/item_manager/ItemManager.cpp
+    src/device/DeviceManager.cpp
     src/device/TemperatureSensor.cpp
     src/device/Motor.cpp
 )
