@@ -1,3 +1,0 @@
-/Users/masayanumashita/cpp-study/cpp-modern-review/buikd/CMakeFiles/cpp-modern-review.dir
-/Users/masayanumashita/cpp-study/cpp-modern-review/buikd/CMakeFiles/edit_cache.dir
-/Users/masayanumashita/cpp-study/cpp-modern-review/buikd/CMakeFiles/rebuild_cache.dir

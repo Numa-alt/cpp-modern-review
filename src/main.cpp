@@ -1,47 +1,33 @@
 #include <iostream>
+#include <vector>
+#include <memory>
 
 #include "item_manager/ItemManager.h"
+#include "device/IDevice.h"
+#include "device/Motor.h"
+#include "device/TemperatureSensor.h"
 
 int main()
 {
-    ItemManager itemManager;
 
-    std::cout << "cpp-modern-review\n";
+    std::vector<std::unique_ptr<IDevice>> devices;
 
-    Item itemA{ 0,"A",100 };
-    Item itemB{ 1,"B",80 };
-    Item itemC{ 2,"C",150 };
-    Item itemD{ 3,"D",90 };
+    devices.push_back(std::make_unique<Motor>(0, "motorA", 1234, 0, false));
+    devices.push_back(std::make_unique<TemperatureSensor>(1, "tempA", 4325, 0));
 
-    itemManager.Add(itemA);
-    itemManager.Add(itemB);
-    itemManager.Add(itemC);
-    itemManager.Add(itemD);
-
-    itemManager.PrintAll();
-
-    itemManager.SortByValue();
-
-    itemManager.PrintAll();
-
-    auto item = itemManager.Find(4);
-    if (!item)
+    for (auto& d : devices)
     {
-        std::cout << "NotFind id 4 \n";
-    }
-    auto item2 = itemManager.Find(0);
-    if (item2)
-    {
-        std::cout << "Find id 0 \n";
+        std::cout << "id " << d->GetId() << " name " << d->GetName() << "\n";
     }
 
-    itemManager.Remove(4);
-
-    itemManager.PrintAll();
-
-    itemManager.Remove(2);
-
-    itemManager.PrintAll();
+    for (int i = 0; i < 100; i++)
+    {
+        for (auto& d : devices)
+        {
+            d->Update();
+            std::cout << "id " << d->GetId() << " name " << d->GetName() << d->GetDataString() << "\n";
+        }
+    }
 
     return 0;
 }
