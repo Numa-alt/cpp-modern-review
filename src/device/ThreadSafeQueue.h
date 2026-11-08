@@ -16,13 +16,19 @@ public:
     {
         std::unique_lock<std::mutex> lock(mMutex);
         mQueue.push(data);
+        lock.unlock();
+        mConditionvariable.notify_one();
     }
     int Pop()
     {
         std::unique_lock<std::mutex> lock(mMutex);
+
+        mConditionvariable.wait(lock, [this]()
+            {
+                return !mQueue.empty();
+            });
         int data = mQueue.front();
         mQueue.pop();
-        lock.unlock();
         return data;
     }
 
