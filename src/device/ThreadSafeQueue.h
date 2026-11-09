@@ -4,32 +4,53 @@
 #include <mutex>
 #include <condition_variable>
 
+template <typename T>
 class ThreadSafeQueue
 {
 private:
-    std::queue<int> mQueue;
+    std::queue<T> mQueue;
     std::mutex mMutex;
     std::condition_variable mConditionvariable;
+    bool mStopping = false;
 
 public:
-    void Push(int data)
+    bool Push(const T& data)
     {
         std::unique_lock<std::mutex> lock(mMutex);
+        if (mStopping)
+        {
+            return false;
+        }
         mQueue.push(data);
         lock.unlock();
         mConditionvariable.notify_one();
+        return true;
     }
-    int Pop()
+
+    bool Pop(T& data)
     {
         std::unique_lock<std::mutex> lock(mMutex);
 
         mConditionvariable.wait(lock, [this]()
             {
-                return !mQueue.empty();
+                return !mQueue.empty() || mStopping;
             });
-        int data = mQueue.front();
+
+        if (mStopping && mQueue.empty())
+        {
+            return false;
+        }
+
+        data = mQueue.front();
         mQueue.pop();
-        return data;
+        return true;
     }
 
+    void Stop()
+    {
+        std::unique_lock<std::mutex> lock(mMutex);
+        mStopping = true;
+        lock.unlock();
+        mConditionvariable.notify_all();
+    }
 };
