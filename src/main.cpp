@@ -32,7 +32,7 @@ void Producer(DeviceManager& deviceManager, ThreadSafeQueue<DeviceEvent>& queue)
     for (int i = 0; i < 100; i++)
     {
         std::vector<DeviceEvent> deviceEvent = deviceManager.Update();
-        for (auto e : deviceEvent)
+        for (const auto& e : deviceEvent)
         {
             queue.Push(e);
         }
@@ -50,7 +50,13 @@ void Consumer(ThreadSafeQueue<DeviceEvent>& queue)
         {
             break;
         }
-        std::cout << "type " << static_cast<int>(data.mType) << " id " << data.mDeviceId << " value " << data.mValue << "\n";
+        switch (data.mType)
+        {
+        case DeviceEventType::Update: std::cout << "[UPDATE] "; break;
+        case DeviceEventType::Warning: std::cout << "[WARING] "; break;
+        case DeviceEventType::Error: std::cout << "[ERROR] "; break;
+        }
+        std::cout << " id=" << data.mDeviceId << " value=" << data.mValue << "\n";
 
     }
 }
