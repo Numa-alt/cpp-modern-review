@@ -33,3 +33,18 @@ std::string TemperatureSensor::GetDataString() const
     dataString += "Temperature = " + std::to_string(mTemperature);
     return dataString;
 }
+
+DeviceEvent TemperatureSensor::GetEvent() const
+{
+    DeviceEvent deviceEvent{ DeviceEventType::Update,GetId(),mTemperature };
+
+    if (mTemperature >= 250)
+    {
+        deviceEvent.mType = DeviceEventType::Error;
+    }
+    else if (mTemperature >= 200)
+    {
+        deviceEvent.mType = DeviceEventType::Warning;
+    }
+    return deviceEvent;
+}

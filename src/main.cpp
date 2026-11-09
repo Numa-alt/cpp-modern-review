@@ -23,22 +23,25 @@ void DisplayDevicesData(const DeviceManager& deviceManager)
     }
 }
 
-void Producer(ThreadSafeQueue<DeviceEvent>& queue)
+void Producer(DeviceManager& deviceManager, ThreadSafeQueue<DeviceEvent>& queue)
 {
-    std::cout << "Producer start\n";
-    std::cout << "Producer push 1\n";
-    queue.Push({ DeviceEventType::Update, 1, 10 });
-    std::cout << "Producer push 2\n";
-    queue.Push({ DeviceEventType::Warning, 2, 20 });
-    std::cout << "Producer push 3\n";
-    queue.Push({ DeviceEventType::Error, 3, 4 });
-    std::cout << "Producer stop\n";
+    // queue.Push({ DeviceEventType::Update, 1, 10 });
+    // queue.Push({ DeviceEventType::Warning, 2, 20 });
+    // queue.Push({ DeviceEventType::Error, 3, 4 });
+
+    for (int i = 0; i < 100; i++)
+    {
+        std::vector<DeviceEvent> deviceEvent = deviceManager.Update();
+        for (auto e : deviceEvent)
+        {
+            queue.Push(e);
+        }
+    }
+
     queue.Stop();
-    std::cout << "Producer end\n";
 }
 void Consumer(ThreadSafeQueue<DeviceEvent>& queue)
 {
-    std::cout << "Consumer start\n";
     while (true)
     {
         DeviceEvent data{ DeviceEventType::Error,0,0 };
@@ -50,39 +53,34 @@ void Consumer(ThreadSafeQueue<DeviceEvent>& queue)
         std::cout << "type " << static_cast<int>(data.mType) << " id " << data.mDeviceId << " value " << data.mValue << "\n";
 
     }
-    std::cout << "Consumer end\n";
 }
 
 
 int main()
 {
+    DeviceManager deviceManager;
+
+    deviceManager.AddDevice(std::make_unique<Motor>(0, "MotorA", 123, 0, false));
+    deviceManager.AddDevice(std::make_unique<Motor>(1, "MotorB", 456, 0, false));
+    deviceManager.AddDevice(std::make_unique<TemperatureSensor>(2, "TempA", 789, 0));
+
+    // for (int i = 0; i < 100; ++i)
+    // {
+    //     std::vector<DeviceEvent> deviceEvent = deviceManager.Update();
+    //     for (const auto& e : deviceEvent)
+    //     {
+    //         std::cout << "Id:" << e.mDeviceId << " Event:" << static_cast<int>(e.mType) << " Value:" << e.mValue << "\n";
+    //     }
+    //     //        DisplayDevicesData(deviceManager);
+    // }
+
     ThreadSafeQueue<DeviceEvent> queue;
 
-    std::thread producer(Producer, std::ref(queue));
+    std::thread producer(Producer, std::ref(deviceManager), std::ref(queue));
     std::thread consumer(Consumer, std::ref(queue));
 
     producer.join();
     consumer.join();
-
-    // DeviceManager deviceManager;
-
-    // deviceManager.AddDevice(std::make_unique<Motor>(0, "MotorA", 123, 0, false));
-    // bool f = deviceManager.AddDevice(std::make_unique<Motor>(1, "MotorB", 456, 0, false));
-
-    // if (f)
-    // {
-    //     std::cout << "success!\n";
-    // }
-    // else {
-    //     std::cout << "failed\n";
-    // }
-    // deviceManager.AddDevice(std::make_unique<TemperatureSensor>(2, "TempA", 789, 0));
-
-    // for (int i = 0; i < 100; ++i)
-    // {
-    //     deviceManager.Update();
-    //     DisplayDevicesData(deviceManager);
-    // }
 
 
     return 0;

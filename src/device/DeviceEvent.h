@@ -17,4 +17,5 @@ struct DeviceEvent
     {
 
     }
+
 };

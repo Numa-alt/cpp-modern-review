@@ -3,8 +3,8 @@
 #include <vector>
 #include <memory>
 
+#include "DeviceEvent.h"
 #include "IDevice.h"
-
 
 class DeviceManager
 {
@@ -13,7 +13,7 @@ private:
 public:
     bool AddDevice(std::unique_ptr<IDevice> device);
 
-    void Update();
+    std::vector<DeviceEvent> Update();
 
     std::size_t GetDeviceCount()const;
 

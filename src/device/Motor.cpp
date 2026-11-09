@@ -4,10 +4,12 @@ int Motor::GetSpeed() const
 {
     return mSpeed;
 }
-bool Motor::GetMoving() const
+
+bool Motor::GetWorking() const
 {
-    return mMoving;
+    return mWorking;
 }
+
 void Motor::Update()
 {
     std::uint64_t speed = CalcRandom();
@@ -29,13 +31,28 @@ void Motor::Update()
         }
     }
 
-    std::uint64_t moving = CalcRandom();
-    mMoving = ((moving % 100) < 50);
+    std::uint64_t working = CalcRandom();
+    mWorking = ((working % 100) < 50);
 
 }
-std::string Motor::GetDataString()const
+
+DeviceEvent Motor::GetEvent() const
 {
-    std::string dataString = "Speed = " + std::to_string(mSpeed) + " Moving = " + std::to_string(mMoving);
+    DeviceEvent deviceEvent{ DeviceEventType::Update,GetId(),mSpeed };
+    if (mSpeed >= 900)
+    {
+        deviceEvent.mType = DeviceEventType::Error;
+    }
+    else if (mSpeed >= 800)
+    {
+        deviceEvent.mType = DeviceEventType::Warning;
+    }
+    return deviceEvent;
+}
+
+std::string Motor::GetDataString() const
+{
+    std::string dataString = "Speed = " + std::to_string(mSpeed) + " Working = " + std::to_string(mWorking);
     return dataString;
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DeviceEvent.h"
 #include "IDevice.h"
 
 class TemperatureSensor : public IDevice
@@ -11,8 +12,10 @@ public:
     {
 
     }
+
     int GetTemperature() const;
     void Update() override;
     std::string GetDataString() const override;
 
+    DeviceEvent GetEvent()const override;
 };

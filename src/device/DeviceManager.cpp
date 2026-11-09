@@ -1,6 +1,7 @@
 #include "DeviceManager.h"
 
 #include <cassert>
+#include <algorithm>
 
 
 bool DeviceManager::AddDevice(std::unique_ptr<IDevice> device)
@@ -18,12 +19,17 @@ bool DeviceManager::AddDevice(std::unique_ptr<IDevice> device)
     return true;
 }
 
-void DeviceManager::Update()
+std::vector<DeviceEvent> DeviceManager::Update()
 {
+    std::vector<DeviceEvent> deviceEventList;
+
     for (auto& d : mDevices)
     {
         d->Update();
+        deviceEventList.push_back(d->GetEvent());
     }
+
+    return deviceEventList;
 }
 
 std::size_t DeviceManager::GetDeviceCount() const

@@ -1,6 +1,9 @@
 #pragma once
 
 #include <string>
+#include <cstdint>
+
+#include "DeviceEvent.h"
 
 class IDevice
 {
@@ -31,4 +34,6 @@ public:
         return mRandom;
     }
     virtual std::string GetDataString() const = 0;
+
+    virtual DeviceEvent GetEvent() const = 0;
 };
