@@ -1,10 +1,12 @@
 #include <iostream>
+#include <thread>
 
 #include "device/DeviceManager.h"
 
 #include "device/IDevice.h"
 #include "device/Motor.h"
 #include "device/TemperatureSensor.h"
+#include "device/ThreadSafeQueue.h"
 
 void DisplayDevicesData(const DeviceManager& deviceManager)
 {
@@ -20,8 +22,26 @@ void DisplayDevicesData(const DeviceManager& deviceManager)
     }
 }
 
+void Producer()
+{
+    queue.Push(1);
+    queue.Push(2);
+    queue.Push(3);
+}
+// void Consumer(ThreadSafeQueue& queue)
+// {
+//     int data1 = queue.Pop();
+//     int data2 = queue.Pop();
+//     int data3 = queue.Pop();
+// }
+
 int main()
 {
+    ThreadSafeQueue queue;
+
+    std::thread producer = std::thread(&Producer, queue);
+    // std::thread worker = std::thread(&Consumer, queue);
+
     DeviceManager deviceManager;
 
     deviceManager.AddDevice(std::make_unique<Motor>(0, "MotorA", 123, 0, false));
