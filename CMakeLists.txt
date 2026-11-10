@@ -12,4 +12,5 @@ add_executable(cpp-modern-review
     src/device/DeviceManager.cpp
     src/device/TemperatureSensor.cpp
     src/device/Motor.cpp
+    src/device/MonitorWorker.cpp
 )
