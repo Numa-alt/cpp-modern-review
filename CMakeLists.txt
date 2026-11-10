@@ -166,5 +166,5 @@ target_link_libraries(test_thread_safe_queue PRIVATE
 # ctest実行時に test_thread_safe_queue を ThreadSafeQueueTest という名前で実行する
 add_test(
     NAME ThreadSafeQueueTest
-    COMMAND test_thread_test_queue
+    COMMAND test_thread_safe_queue
 )

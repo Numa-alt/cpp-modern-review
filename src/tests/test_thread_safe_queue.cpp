@@ -32,24 +32,23 @@ int main()
     assert(e1.mValue == 1);
     assert(e2.mValue == 2);
 
-#if 0
-    //Queueが空になった後popがfalseを返す
-    DeviceEvent e3{ DeviceEventType::Error,6,6 };
-    bool b = q.Pop(e3);
-    assert(b == false);
-
-
     //Stop後でもすでにQueueにあるイベントは取り出せる
-    q.Push(DeviceEvent(DeviceEventType::Update, 7, 7));
+    q.Push(DeviceEvent(DeviceEventType::Update, 6, 6));
     q.Stop();
-    DeviceEvent e6;
-    bool bb = q.Pop(e6);
-    assert(e6.mType == DeviceEventType::Update);
-    assert(e6.mDeviceId == 7);
-    assert(e6.mValue == 7);
+    DeviceEvent e3{ DeviceEventType::Error,999,999 };
+    bool canPop = q.Pop(e3);
+    assert(canPop);
+    assert(e3.mDeviceId == 6);
+    assert(e3.mType == DeviceEventType::Update);
+    assert(e3.mValue == 6);
 
-    bool afterStop = q.Push(DeviceEvent(DeviceEventType::Update, 7, 7));
-    assert(afterStop == false);
-#endif
+    //Stop済みで、かつQueueが空になったあとPop()がfalse
+    DeviceEvent e4{ DeviceEventType::Error,7,7 };
+    bool afterStopAndEmptyPop = q.Pop(e4);
+    assert(afterStopAndEmptyPop == false);
+
+    bool canPush = q.Push(DeviceEvent(DeviceEventType::Update, 8, 8));
+    assert(!canPush);
+
     return 0;
 }
