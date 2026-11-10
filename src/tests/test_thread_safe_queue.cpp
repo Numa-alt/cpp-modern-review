@@ -45,7 +45,7 @@ int main()
     //Stop済みで、かつQueueが空になったあとPop()がfalse
     DeviceEvent e4{ DeviceEventType::Error,7,7 };
     bool afterStopAndEmptyPop = q.Pop(e4);
-    assert(afterStopAndEmptyPop == false);
+    assert(!afterStopAndEmptyPop);
 
     bool canPush = q.Push(DeviceEvent(DeviceEventType::Update, 8, 8));
     assert(!canPush);
