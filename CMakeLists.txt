@@ -168,3 +168,35 @@ add_test(
     NAME ThreadSafeQueueTest
     COMMAND test_thread_safe_queue
 )
+
+# ------------------------------------------------------------
+# MonitorWorkerの単体テスト
+# ------------------------------------------------------------
+
+# MonitorWorkerテスト用の実行ファイルを作る
+add_executable(test_monitor_worker
+    src/tests/test_monitor_worker.cpp
+)
+
+# test_monitor_workerからMonitorWorkerなどのDevice実装を利用する
+#
+# device_core側のPUBLIC include pathも引き継がれるので、
+# test_monitor_worker.cppから
+#
+#   #include "device/MonitorWorker.h"
+#
+# のように書ける
+target_link_libraries(test_monitor_worker PRIVATE
+    device_core
+)
+
+
+# ------------------------------------------------------------
+# CTestへのテスト登録
+# ------------------------------------------------------------
+
+# ctest実行時に test_monitor_worker を MonitorWorkerTest という名前で実行する
+add_test(
+    NAME MonitorWorkerTest
+    COMMAND test_monitor_worker
+)

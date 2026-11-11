@@ -25,6 +25,17 @@ void Producer(DeviceManager& deviceManager, ThreadSafeQueue<DeviceEvent>& queue)
     queue.Stop();
 }
 
+void DisplayDeviceEvent(const DeviceEvent& deviceEvent)
+{
+    switch (deviceEvent.mType)
+    {
+    case DeviceEventType::Update: std::cout << "[UPDATE] "; break;
+    case DeviceEventType::Warning: std::cout << "[WARNING] "; break;
+    case DeviceEventType::Error: std::cout << "[ERROR] "; break;
+    }
+    std::cout << " id=" << deviceEvent.mDeviceId << " value=" << deviceEvent.mValue << "\n";
+}
+
 int main()
 {
     DeviceManager deviceManager;
@@ -34,7 +45,7 @@ int main()
     deviceManager.AddDevice(std::make_unique<TemperatureSensor>(2, "TempA", 789, 0));
 
     ThreadSafeQueue<DeviceEvent> queue;
-    MonitorWorker monitorWorker(queue);
+    MonitorWorker monitorWorker(queue, DisplayDeviceEvent);
 
     std::thread producer(Producer, std::ref(deviceManager), std::ref(queue));
     std::thread consumer(&MonitorWorker::Run, &monitorWorker);

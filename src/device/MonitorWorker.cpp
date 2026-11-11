@@ -1,7 +1,5 @@
 #include "MonitorWorker.h"
 
-#include <iostream>
-
 void MonitorWorker::Run()
 {
     while (true)
@@ -12,15 +10,6 @@ void MonitorWorker::Run()
         {
             break;
         }
-
-        switch (data.mType)
-        {
-        case DeviceEventType::Update: std::cout << "[UPDATE] "; break;
-        case DeviceEventType::Warning: std::cout << "[WARNING] "; break;
-        case DeviceEventType::Error: std::cout << "[ERROR] "; break;
-        }
-
-        std::cout << " id=" << data.mDeviceId << " value=" << data.mValue << "\n";
-
+        mEventCallback(data);
     }
 }
