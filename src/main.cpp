@@ -2,6 +2,7 @@
 #include <thread>
 #include <stop_token>
 #include <chrono>
+#include <fstream>
 
 #include "device/DeviceManager.h"
 
@@ -38,6 +39,19 @@ void DisplayDeviceEvent(const DeviceEvent& deviceEvent)
     std::cout << " id=" << deviceEvent.mDeviceId << " value=" << deviceEvent.mValue << "\n";
 }
 
+void WriteDeviceEventLog(const DeviceEvent& deviceEvent, std::ofstream& ofs)
+{
+    switch (deviceEvent.mType)
+    {
+    case DeviceEventType::Update: ofs << "[UPDATE] "; break;
+    case DeviceEventType::Warning: ofs << "[WARNING] "; break;
+    case DeviceEventType::Error: ofs << "[ERROR] "; break;
+    }
+    ofs << " device id=" << deviceEvent.mDeviceId;
+    ofs << " value=" << deviceEvent.mValue << "\n";
+}
+
+
 int main()
 {
     DeviceManager deviceManager;
@@ -46,8 +60,14 @@ int main()
     deviceManager.AddDevice(std::make_unique<Motor>(1, "MotorB", 456, 0, false));
     deviceManager.AddDevice(std::make_unique<TemperatureSensor>(2, "TempA", 789, 0));
 
+    std::ofstream logFile("device.log", std::ios::app);
+
     ThreadSafeQueue<DeviceEvent> queue;
-    MonitorWorker monitorWorker(queue, DisplayDeviceEvent);
+    MonitorWorker monitorWorker(queue, [&](const DeviceEvent& deviceEvent)
+        {
+            DisplayDeviceEvent(deviceEvent);
+            WriteDeviceEventLog(deviceEvent, logFile);
+        });
 
     std::jthread producer(Producer, std::ref(deviceManager), std::ref(queue));
     std::jthread consumer(&MonitorWorker::Run, &monitorWorker);
