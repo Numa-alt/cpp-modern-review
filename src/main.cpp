@@ -1,5 +1,6 @@
 #include <iostream>
 #include <thread>
+#include <chrono>
 
 #include "device/DeviceManager.h"
 
@@ -13,12 +14,19 @@
 
 void Producer(DeviceManager& deviceManager, ThreadSafeQueue<DeviceEvent>& queue)
 {
-    for (int i = 0; i < 100; ++i)
+    int count = 0;
+    while (true)
     {
         std::vector<DeviceEvent> deviceEvent = deviceManager.Update();
         for (const auto& e : deviceEvent)
         {
             queue.Push(e);
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        ++count;
+        if (count >= 10)
+        {
+            break;
         }
     }
 
