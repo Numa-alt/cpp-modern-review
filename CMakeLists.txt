@@ -8,11 +8,11 @@ project(cpp-modern-review LANGUAGES CXX)
 # CTestによるテスト機能を有効化
 enable_testing()
 
-# C++17を使用する
-set(CMAKE_CXX_STANDARD 17)
+# C++20を使用する
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# gnu++17のようなコンパイラ独自拡張は使わず、標準C++17を使う
+# gnu++20のようなコンパイラ独自拡張は使わず、標準C++20を使う
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # compile_commands.jsonを生成する
@@ -21,9 +21,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # 警告オプション（core / platform 共通）
 if(MSVC)
-    set(PUYO_WARN_FLAGS /W4 /utf-8)
+    set(MODERN_WARN_FLAGS /W4 /utf-8)
 else()
-    set(PUYO_WARN_FLAGS -Wall -Wextra -Wconversion -Wsign-conversion -Wshadow)
+    set(MODERN_WARN_FLAGS -Wall -Wextra -Wconversion -Wsign-conversion -Wshadow)
 endif()
 
 # ------------------------------------------------------------
@@ -55,6 +55,7 @@ target_include_directories(device_core PUBLIC
     src
 )
 
+target_compile_options(device_core PRIVATE ${MODERN_WARN_FLAGS})
 
 # ------------------------------------------------------------
 # メインプログラム
@@ -66,10 +67,14 @@ add_executable(cpp-modern-review
     src/item_manager/ItemManager.cpp
 )
 
+
+
 # メインプログラムからDevice関連の実装を利用する
 target_link_libraries(cpp-modern-review PRIVATE
     device_core
 )
+
+target_compile_options(cpp-modern-review PRIVATE ${MODERN_WARN_FLAGS})
 
 
 # ------------------------------------------------------------
@@ -92,6 +97,8 @@ add_executable(test_motor
 target_link_libraries(test_motor PRIVATE
     device_core
 )
+
+target_compile_options(test_motor PRIVATE ${MODERN_WARN_FLAGS})
 
 
 # ------------------------------------------------------------
@@ -125,12 +132,13 @@ target_link_libraries(test_temperature_sensor PRIVATE
     device_core
 )
 
+target_compile_options(test_temperature_sensor PRIVATE ${MODERN_WARN_FLAGS})
 
 # ------------------------------------------------------------
 # CTestへのテスト登録
 # ------------------------------------------------------------
 
-# ctest実行時に test_temperature を TemperatureSensorTest という名前で実行する
+# ctest実行時に test_temperature_sensor を TemperatureSensorTest という名前で実行する
 add_test(
     NAME TemperatureSensorTest
     COMMAND test_temperature_sensor
@@ -157,6 +165,8 @@ add_executable(test_thread_safe_queue
 target_link_libraries(test_thread_safe_queue PRIVATE
     device_core
 )
+
+target_compile_options(test_thread_safe_queue PRIVATE ${MODERN_WARN_FLAGS})
 
 
 # ------------------------------------------------------------
@@ -189,6 +199,8 @@ add_executable(test_monitor_worker
 target_link_libraries(test_monitor_worker PRIVATE
     device_core
 )
+
+target_compile_options(test_monitor_worker PRIVATE ${MODERN_WARN_FLAGS})
 
 
 # ------------------------------------------------------------

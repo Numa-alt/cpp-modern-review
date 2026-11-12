@@ -1,5 +1,6 @@
 #include <iostream>
 #include <thread>
+#include <stop_token>
 #include <chrono>
 
 #include "device/DeviceManager.h"
@@ -12,10 +13,9 @@
 #include "device/MonitorWorker.h"
 
 
-void Producer(DeviceManager& deviceManager, ThreadSafeQueue<DeviceEvent>& queue)
+void Producer(std::stop_token stopToken, DeviceManager& deviceManager, ThreadSafeQueue<DeviceEvent>& queue)
 {
-    int count = 0;
-    while (true)
+    while (!stopToken.stop_requested())
     {
         std::vector<DeviceEvent> deviceEvent = deviceManager.Update();
         for (const auto& e : deviceEvent)
@@ -23,14 +23,8 @@ void Producer(DeviceManager& deviceManager, ThreadSafeQueue<DeviceEvent>& queue)
             queue.Push(e);
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
-        ++count;
-        if (count >= 10)
-        {
-            break;
-        }
-    }
 
-    queue.Stop();
+    }
 }
 
 void DisplayDeviceEvent(const DeviceEvent& deviceEvent)
@@ -55,10 +49,14 @@ int main()
     ThreadSafeQueue<DeviceEvent> queue;
     MonitorWorker monitorWorker(queue, DisplayDeviceEvent);
 
-    std::thread producer(Producer, std::ref(deviceManager), std::ref(queue));
-    std::thread consumer(&MonitorWorker::Run, &monitorWorker);
+    std::jthread producer(Producer, std::ref(deviceManager), std::ref(queue));
+    std::jthread consumer(&MonitorWorker::Run, &monitorWorker);
 
+    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+    producer.request_stop();
     producer.join();
+    queue.Stop();
+
     consumer.join();
 
     return 0;
