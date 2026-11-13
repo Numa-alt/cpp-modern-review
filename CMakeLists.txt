@@ -41,6 +41,7 @@ add_library(device_core STATIC
     src/device/MonitorWorker.cpp
     src/device/Motor.cpp
     src/device/TemperatureSensor.cpp
+    src/device/DeviceEventWriter.cpp
 )
 
 # device_coreを利用するターゲットから、
