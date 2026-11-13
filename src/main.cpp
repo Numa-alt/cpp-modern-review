@@ -3,6 +3,7 @@
 #include <stop_token>
 #include <chrono>
 #include <fstream>
+#include <iomanip>
 
 #include "device/DeviceManager.h"
 
@@ -28,24 +29,36 @@ void Producer(std::stop_token stopToken, DeviceManager& deviceManager, ThreadSaf
     }
 }
 
-void DisplayDeviceEvent(const DeviceEvent& deviceEvent)
+void WriteCurrentTime(std::ostream& ofs)
 {
-    switch (deviceEvent.mType)
-    {
-    case DeviceEventType::Update: std::cout << "[UPDATE] "; break;
-    case DeviceEventType::Warning: std::cout << "[WARNING] "; break;
-    case DeviceEventType::Error: std::cout << "[ERROR] "; break;
-    }
-    std::cout << " id=" << deviceEvent.mDeviceId << " value=" << deviceEvent.mValue << "\n";
+    auto now = std::chrono::system_clock::now();
+    std::time_t t = std::chrono::system_clock::to_time_t(now);
+    std::tm localTime{};
+
+#ifdef _WIN32
+    localtime_s(&localTime, &t);
+#else
+    localtime_r(&t, &localTime);
+#endif
+
+    ofs << "["
+        << std::setfill('0')
+        << std::setw(2) << localTime.tm_hour << ":"
+        << std::setw(2) << localTime.tm_min << ":"
+        << std::setw(2) << localTime.tm_sec
+        << "] ";
+
 }
 
-void WriteDeviceEventLog(const DeviceEvent& deviceEvent, std::ofstream& ofs)
+void WriteDeviceEvent(const DeviceEvent& deviceEvent, std::ostream& ofs)
 {
+    WriteCurrentTime(ofs);
+
     switch (deviceEvent.mType)
     {
-    case DeviceEventType::Update: ofs << "[UPDATE] "; break;
-    case DeviceEventType::Warning: ofs << "[WARNING] "; break;
-    case DeviceEventType::Error: ofs << "[ERROR] "; break;
+    case DeviceEventType::Update: ofs << "[UPDATE]"; break;
+    case DeviceEventType::Warning: ofs << "[WARNING]"; break;
+    case DeviceEventType::Error: ofs << "[ERROR]"; break;
     }
     ofs << " device id=" << deviceEvent.mDeviceId;
     ofs << " value=" << deviceEvent.mValue << "\n";
@@ -70,8 +83,8 @@ int main()
     ThreadSafeQueue<DeviceEvent> queue;
     MonitorWorker monitorWorker(queue, [&logFile](const DeviceEvent& deviceEvent)
         {
-            DisplayDeviceEvent(deviceEvent);
-            WriteDeviceEventLog(deviceEvent, logFile);
+            WriteDeviceEvent(deviceEvent, std::cout);
+            WriteDeviceEvent(deviceEvent, logFile);
         });
 
     std::jthread producer(Producer, std::ref(deviceManager), std::ref(queue));

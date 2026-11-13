@@ -1,60 +1,150 @@
-[UPDATE]  device id=0 value=0
-[UPDATE]  device id=1 value=64
-[UPDATE]  device id=2 value=9
-[UPDATE]  device id=0 value=30
-[UPDATE]  device id=1 value=73
-[UPDATE]  device id=2 value=9
-[UPDATE]  device id=0 value=0
-[UPDATE]  device id=1 value=62
-[UPDATE]  device id=2 value=13
-[UPDATE]  device id=0 value=37
-[UPDATE]  device id=1 value=15
-[UPDATE]  device id=2 value=14
-[UPDATE]  device id=0 value=130
-[UPDATE]  device id=1 value=12
-[UPDATE]  device id=2 value=19
-[UPDATE]  device id=0 value=108
-[UPDATE]  device id=1 value=85
-[UPDATE]  device id=2 value=27
-[UPDATE]  device id=0 value=57
-[UPDATE]  device id=1 value=152
-[UPDATE]  device id=2 value=36
-[UPDATE]  device id=0 value=37
-[UPDATE]  device id=1 value=65
-[UPDATE]  device id=2 value=32
-[UPDATE]  device id=0 value=51
-[UPDATE]  device id=1 value=53
-[UPDATE]  device id=2 value=32
-[UPDATE]  device id=0 value=7
-[UPDATE]  device id=1 value=39
-[UPDATE]  device id=2 value=31
-[UPDATE]  device id=0 value=0
-[UPDATE]  device id=1 value=64
-[UPDATE]  device id=2 value=9
-[UPDATE]  device id=0 value=30
-[UPDATE]  device id=1 value=73
-[UPDATE]  device id=2 value=9
-[UPDATE]  device id=0 value=0
-[UPDATE]  device id=1 value=62
-[UPDATE]  device id=2 value=13
-[UPDATE]  device id=0 value=37
-[UPDATE]  device id=1 value=15
-[UPDATE]  device id=2 value=14
-[UPDATE]  device id=0 value=130
-[UPDATE]  device id=1 value=12
-[UPDATE]  device id=2 value=19
-[UPDATE]  device id=0 value=108
-[UPDATE]  device id=1 value=85
-[UPDATE]  device id=2 value=27
-[UPDATE]  device id=0 value=57
-[UPDATE]  device id=1 value=152
-[UPDATE]  device id=2 value=36
-[UPDATE]  device id=0 value=37
-[UPDATE]  device id=1 value=65
-[UPDATE]  device id=2 value=32
-[UPDATE]  device id=0 value=51
-[UPDATE]  device id=1 value=53
-[UPDATE]  device id=2 value=32
-[UPDATE]  device id=0 value=7
-[UPDATE]  device id=1 value=39
-[UPDATE]  device id=2 value=31
+[15:53:58] [UPDATE] device id=0 value=0
+[15:53:58] [UPDATE] device id=1 value=64
+[15:53:58] [UPDATE] device id=2 value=9
+[15:53:59] [UPDATE] device id=0 value=30
+[15:53:59] [UPDATE] device id=1 value=73
+[15:53:59] [UPDATE] device id=2 value=9
+[15:53:59] [UPDATE] device id=0 value=0
+[15:53:59] [UPDATE] device id=1 value=62
+[15:53:59] [UPDATE] device id=2 value=13
+[15:54:00] [UPDATE] device id=0 value=37
+[15:54:00] [UPDATE] device id=1 value=15
+[15:54:00] [UPDATE] device id=2 value=14
+[15:54:00] [UPDATE] device id=0 value=130
+[15:54:00] [UPDATE] device id=1 value=12
+[15:54:00] [UPDATE] device id=2 value=19
+[15:54:01] [UPDATE] device id=0 value=108
+[15:54:01] [UPDATE] device id=1 value=85
+[15:54:01] [UPDATE] device id=2 value=27
+[15:54:01] [UPDATE] device id=0 value=57
+[15:54:01] [UPDATE] device id=1 value=152
+[15:54:01] [UPDATE] device id=2 value=36
+[15:54:02] [UPDATE] device id=0 value=37
+[15:54:02] [UPDATE] device id=1 value=65
+[15:54:02] [UPDATE] device id=2 value=32
+[15:54:02] [UPDATE] device id=0 value=51
+[15:54:02] [UPDATE] device id=1 value=53
+[15:54:02] [UPDATE] device id=2 value=32
+[15:54:03] [UPDATE] device id=0 value=7
+[15:54:03] [UPDATE] device id=1 value=39
+[15:54:03] [UPDATE] device id=2 value=31
+[16:00:18] [UPDATE] device id=0 value=0
+[16:00:18] [UPDATE] device id=1 value=64
+[16:00:18] [UPDATE] device id=2 value=9
+[16:00:18] [UPDATE] device id=0 value=30
+[16:00:18] [UPDATE] device id=1 value=73
+[16:00:18] [UPDATE] device id=2 value=9
+[16:00:19] [UPDATE] device id=0 value=0
+[16:00:19] [UPDATE] device id=1 value=62
+[16:00:19] [UPDATE] device id=2 value=13
+[16:00:19] [UPDATE] device id=0 value=37
+[16:00:19] [UPDATE] device id=1 value=15
+[16:00:19] [UPDATE] device id=2 value=14
+[16:00:20] [UPDATE] device id=0 value=130
+[16:00:20] [UPDATE] device id=1 value=12
+[16:00:20] [UPDATE] device id=2 value=19
+[16:00:20] [UPDATE] device id=0 value=108
+[16:00:20] [UPDATE] device id=1 value=85
+[16:00:20] [UPDATE] device id=2 value=27
+[16:00:21] [UPDATE] device id=0 value=57
+[16:00:21] [UPDATE] device id=1 value=152
+[16:00:21] [UPDATE] device id=2 value=36
+[16:00:21] [UPDATE] device id=0 value=37
+[16:00:21] [UPDATE] device id=1 value=65
+[16:00:21] [UPDATE] device id=2 value=32
+[16:00:22] [UPDATE] device id=0 value=51
+[16:00:22] [UPDATE] device id=1 value=53
+[16:00:22] [UPDATE] device id=2 value=32
+[16:00:22] [UPDATE] device id=0 value=7
+[16:00:22] [UPDATE] device id=1 value=39
+[16:00:22] [UPDATE] device id=2 value=31
+[16:04:59] [UPDATE] device id=0 value=0
+[16:04:59] [UPDATE] device id=1 value=64
+[16:04:59] [UPDATE] device id=2 value=9
+[16:05:00] [UPDATE] device id=0 value=30
+[16:05:00] [UPDATE] device id=1 value=73
+[16:05:00] [UPDATE] device id=2 value=9
+[16:05:00] [UPDATE] device id=0 value=0
+[16:05:00] [UPDATE] device id=1 value=62
+[16:05:00] [UPDATE] device id=2 value=13
+[16:05:01] [UPDATE] device id=0 value=37
+[16:05:01] [UPDATE] device id=1 value=15
+[16:05:01] [UPDATE] device id=2 value=14
+[16:05:01] [UPDATE] device id=0 value=130
+[16:05:01] [UPDATE] device id=1 value=12
+[16:05:01] [UPDATE] device id=2 value=19
+[16:05:02] [UPDATE] device id=0 value=108
+[16:05:02] [UPDATE] device id=1 value=85
+[16:05:02] [UPDATE] device id=2 value=27
+[16:05:02] [UPDATE] device id=0 value=57
+[16:05:02] [UPDATE] device id=1 value=152
+[16:05:02] [UPDATE] device id=2 value=36
+[16:05:03] [UPDATE] device id=0 value=37
+[16:05:03] [UPDATE] device id=1 value=65
+[16:05:03] [UPDATE] device id=2 value=32
+[16:05:03] [UPDATE] device id=0 value=51
+[16:05:03] [UPDATE] device id=1 value=53
+[16:05:03] [UPDATE] device id=2 value=32
+[16:05:04] [UPDATE] device id=0 value=7
+[16:05:04] [UPDATE] device id=1 value=39
+[16:05:04] [UPDATE] device id=2 value=31
+[16:07:21] [UPDATE] device id=0 value=0
+[16:07:21] [UPDATE] device id=1 value=64
+[16:07:21] [UPDATE] device id=2 value=9
+[16:07:22] [UPDATE] device id=0 value=30
+[16:07:22] [UPDATE] device id=1 value=73
+[16:07:22] [UPDATE] device id=2 value=9
+[16:07:22] [UPDATE] device id=0 value=0
+[16:07:22] [UPDATE] device id=1 value=62
+[16:07:22] [UPDATE] device id=2 value=13
+[16:07:23] [UPDATE] device id=0 value=37
+[16:07:23] [UPDATE] device id=1 value=15
+[16:07:23] [UPDATE] device id=2 value=14
+[16:07:23] [UPDATE] device id=0 value=130
+[16:07:23] [UPDATE] device id=1 value=12
+[16:07:23] [UPDATE] device id=2 value=19
+[16:07:24] [UPDATE] device id=0 value=108
+[16:07:24] [UPDATE] device id=1 value=85
+[16:07:24] [UPDATE] device id=2 value=27
+[16:07:24] [UPDATE] device id=0 value=57
+[16:07:24] [UPDATE] device id=1 value=152
+[16:07:24] [UPDATE] device id=2 value=36
+[16:07:25] [UPDATE] device id=0 value=37
+[16:07:25] [UPDATE] device id=1 value=65
+[16:07:25] [UPDATE] device id=2 value=32
+[16:07:25] [UPDATE] device id=0 value=51
+[16:07:25] [UPDATE] device id=1 value=53
+[16:07:25] [UPDATE] device id=2 value=32
+[16:07:26] [UPDATE] device id=0 value=7
+[16:07:26] [UPDATE] device id=1 value=39
+[16:07:26] [UPDATE] device id=2 value=31
+[16:15:09] [UPDATE] device id=0 value=0
+[16:15:09] [UPDATE] device id=1 value=64
+[16:15:09] [UPDATE] device id=2 value=9
+[16:15:09] [UPDATE] device id=0 value=30
+[16:15:09] [UPDATE] device id=1 value=73
+[16:15:09] [UPDATE] device id=2 value=9
+[16:15:10] [UPDATE] device id=0 value=0
+[16:15:10] [UPDATE] device id=1 value=62
+[16:15:10] [UPDATE] device id=2 value=13
+[16:15:10] [UPDATE] device id=0 value=37
+[16:15:10] [UPDATE] device id=1 value=15
+[16:15:10] [UPDATE] device id=2 value=14
+[16:15:11] [UPDATE] device id=0 value=130
+[16:15:11] [UPDATE] device id=1 value=12
+[16:15:11] [UPDATE] device id=2 value=19
+[16:15:11] [UPDATE] device id=0 value=108
+[16:15:11] [UPDATE] device id=1 value=85
+[16:15:11] [UPDATE] device id=2 value=27
+[16:15:12] [UPDATE] device id=0 value=57
+[16:15:12] [UPDATE] device id=1 value=152
+[16:15:12] [UPDATE] device id=2 value=36
+[16:15:12] [UPDATE] device id=0 value=37
+[16:15:12] [UPDATE] device id=1 value=65
+[16:15:12] [UPDATE] device id=2 value=32
+[16:15:13] [UPDATE] device id=0 value=51
+[16:15:13] [UPDATE] device id=1 value=53
+[16:15:13] [UPDATE] device id=2 value=32
+[16:15:13] [UPDATE] device id=0 value=7
+[16:15:13] [UPDATE] device id=1 value=39
+[16:15:13] [UPDATE] device id=2 value=31
