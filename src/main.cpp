@@ -61,9 +61,14 @@ int main()
     deviceManager.AddDevice(std::make_unique<TemperatureSensor>(2, "TempA", 789, 0));
 
     std::ofstream logFile("device.log", std::ios::app);
+    if (!logFile)
+    {
+        std::cerr << "Failed to open device.log\n";
+        return 1;
+    }
 
     ThreadSafeQueue<DeviceEvent> queue;
-    MonitorWorker monitorWorker(queue, [&](const DeviceEvent& deviceEvent)
+    MonitorWorker monitorWorker(queue, [&logFile](const DeviceEvent& deviceEvent)
         {
             DisplayDeviceEvent(deviceEvent);
             WriteDeviceEventLog(deviceEvent, logFile);
